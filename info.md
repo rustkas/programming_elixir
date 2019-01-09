@@ -74,25 +74,25 @@ handle_open = fn
 
 end
 
-fizz_word = ​fn
-0, 0, _ -> ​"FizzBuzz"
-0, _, _ -> ​"Fizz"
-_, 0, _ -> ​"Buzz"
-_, _, ​n​ -> n
+fizz_word = fn
+0, 0, _ -> "FizzBuzz"
+0, _, _ -> "Fizz"
+_, 0, _ -> "Buzz"
+_, _, n -> n
 end
 
 fizz_word = fn
 0, 0, _ -> "FizzBuzz"
 0, _, _ -> "Fizz"
 _, 0, _ -> "Buzz"
-_, _,​ n -> n
+_, _, n -> n
 end
 fizz_word(0,1,1)
 fizz_word(0,1,1)
 
 
 fb = fn n ->
-fizz_word.(rem(​n​, 3), rem(​n​, 5), ​n​)
+fizz_word.(rem(n, 3), rem(n, 5), n)
 end
 
 mrs = prefix.("Mrs")
@@ -121,4 +121,16 @@ defp _guess(actual, guess,  low.._high) when guess > actual, do: guess(actual, l
 end
 
 Chop.guess(273, 1..1000)
+
+(1..10) |> Enum.map(&(&1*&1)) |> Enum.filter(&(&1 < 40))
+
+
+:io.format("The number is ~3.1f~n", [5.678])
+:io.format("The number is ~3.2f~n", [5.678])
+:io.format("The number is ~2.2f~n", [5.678])
+:io.format("The number is ~1.2f~n", [5.678])
+:io.format("The number is ~0.2f~n", [5.678])
+:io.format("The number is ~4.2f~n", [5.678])
+:io.format("The number is ~5.2f~n", [5.678])
+
 ```
