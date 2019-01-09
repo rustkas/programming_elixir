@@ -100,4 +100,25 @@ mrs.("Smith")
 prefix.("Elixir").("Rocks")
 prefix = fn string1 -> (fn word -> string1 <> " " <> word end) end
 
+Enum.map [1,2,3,4], fn x -> x + 2 end
+Enum.map [1,2,3,4], &(&1+2)
+Enum.each [1,2,3,4], &(IO.inspect &1)
+
+
+defmodule Chop do
+
+def guess(actual, range = low..high) do
+guess = div(low+high, 2)
+IO.puts "Is it #{guess}?"
+_guess(actual, guess, range)
+end
+
+defp _guess(actual, actual, _), do: IO.puts "Yes, it's #{actual}"
+
+defp _guess(actual, guess,  _low..high) when guess < actual, do: guess(actual, guess+1..high)
+
+defp _guess(actual, guess,  low.._high) when guess > actual, do: guess(actual, low..guess-1)
+end
+
+Chop.guess(273, 1..1000)
 ```
