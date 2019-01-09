@@ -1,3 +1,4 @@
+```code
 r(DoParallel)
 result = DoParallel.pmap 1..1000, &(&1 * &1)
 
@@ -98,3 +99,5 @@ mrs = prefix.("Mrs")
 mrs.("Smith")
 prefix.("Elixir").("Rocks")
 prefix = fn string1 -> (fn word -> string1 <> " " <> word end) end
+
+```
