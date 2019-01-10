@@ -133,4 +133,22 @@ Chop.guess(273, 1..1000)
 :io.format("The number is ~4.2f~n", [5.678])
 :io.format("The number is ~5.2f~n", [5.678])
 
+System.get_env("Path")
+:io.format("~.2f~n", [2.0/3.0])
+Path.extname("dave/test.exs")
+
+System.cwd
+
+
+[1,2,3] ++ [4,5,6]
+List.flatten([[[1], 2], [[[3]]]])
+List.foldl([1,2,3], "", fn value, acc -> "#{value}(#{acc})" end)
+List.foldr([1,2,3], "", fn value, acc -> "#{value}(#{acc})" end)
+
+List.replace_at(list, 2, "buckle my shoe")
+List.keyfind(kw, "Dallas", 1)
+
+
+
+
 ```
