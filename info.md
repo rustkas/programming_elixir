@@ -148,6 +148,61 @@ List.foldr([1,2,3], "", fn value, acc -> "#{value}(#{acc})" end)
 List.replace_at(list, 2, "buckle my shoe")
 List.keyfind(kw, "Dallas", 1)
 
+Stream.cycle(~w{ green white }) |> Stream.zip(1..10) |> Enum.map(fn {class, value} -> "<tr class='#{class}'><td>#{value}</td></tr>\n" end) |> IO.puts
+
+Stream.repeatedly(fn -> true end) |> Enum.take(3)
+
+Stream.iterate(0, &(&1+1)) |> Enum.take(5)
+Stream.iterate(2, &(&1*&1)) |> Enum.take(5)
+Stream.iterate([], &[&1]) |> Enum.take(50)
+Stream.unfold({0,1}, fn {f1,f2} -> {f1, {f2, f1+f2}} end) |> Enum.take(15)
+
+defmodule Countdown do
+  def sleep(seconds) do
+   receive do
+   after seconds*1000 -> nil
+   end
+  end
+  
+  def say(text) do
+  spawn fn -> :os.cmd('say #{text}') end
+  end
+  def timer do
+  Stream.resource(
+     fn -> # the number of seconds to the start of the next minute
+	 {_h,_m,s} = :erlang.time
+       60 - s - 1
+     end,
+
+	 fn # wait for the next second, then return its countdown
+      0 ->
+        {:halt, 0}
+
+	  count ->
+        sleep(1)
+        { [inspect(count)], count - 1 }
+     end,
+     
+	 fn _ -> nil end # nothing to deallocate
+    )
+  end
+end
+
+counter = Countdown.timer
+printer = counter |> Stream.each(&IO.puts/1)
+speaker = printer |> Stream.each(&Countdown.say/1)
+
+
+tax_rates = [ NC: 0.075, TX: 0.08 ]
+orders = [
+[ id: 123, ship_to: :NC, net_amount: 100.00 ],
+[ id: 124, ship_to: :OK, net_amount: 35.50 ],
+[ id: 125, ship_to: :TX, net_amount: 24.00 ],
+[ id: 126, ship_to: :TX, net_amount: 44.80 ],
+[ id: 127, ship_to: :NC, net_amount: 25.00 ],
+[ id: 128, ship_to: :MA, net_amount: 10.00 ],
+[ id: 129, ship_to: :CA, net_amount: 102.00 ],
+[ id: 130, ship_to: :NC, net_amount: 50.00 ] ]
 
 
 
